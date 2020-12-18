@@ -9,6 +9,9 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject bullet;
     public int fireRate;
 
+    public float gravity = 9.8f;
+    public float jumpforce = 1.0f;
+    private Vector3 direction = Vector3.zero;
 
     public BulletManager bulletManager;
 
@@ -20,6 +23,7 @@ public class PlayerBehaviour : MonoBehaviour
     public RigidBody3D body;
     public CubeBehaviour cube;
     public Camera playerCam;
+    
 
     void start()
     {
@@ -67,7 +71,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (Input.GetAxisRaw("Jump") > 0.0f)
             {
-                body.velocity = transform.up * speed * 0.1f * Time.deltaTime;
+                body.velocity += transform.up * speed * 0.04f * Time.deltaTime;
             }
 
             transform.position += body.velocity;

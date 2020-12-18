@@ -56,10 +56,14 @@ public class CubeBehaviour : MonoBehaviour
     public Vector3 size;
     public Vector3 max;
     public Vector3 min;
+    public Vector3 velocity;
+    public Vector3 acceleration;
     public bool isColliding;
     public bool debug;
     public List<Contact> contacts;
-
+    public Vector3 collisionNormal;
+    public Vector3 direction;
+    public float speed;
     private MeshFilter meshFilter;
     public Bounds bounds;
     public bool isGrounded;
@@ -79,9 +83,24 @@ public class CubeBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < contacts.Count; i++)
+        {
+            if (GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC)
+            {
+                if (contacts[i].cube.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC)
+                {
+                    transform.position -= contacts[i].penetration * 1.0f * contacts[i].face;
+                    contacts[i].cube.transform.position += contacts[i].penetration * 1.0f * contacts[i].face;
+                }
+                else
+                {
+                    transform.position -= contacts[i].penetration * contacts[i].face;
+                }
+            }
+        }
         max = Vector3.Scale(bounds.max, transform.localScale) + transform.position;
         min = Vector3.Scale(bounds.min, transform.localScale) + transform.position;
-
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     private void OnDrawGizmos()

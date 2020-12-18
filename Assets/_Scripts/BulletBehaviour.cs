@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//101100713
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,18 +16,25 @@ public class BulletBehaviour : MonoBehaviour
     public float penetration;
 
     public BulletManager bulletManager;
-
+    public Vector3 min, max;
+    public Bounds bounds;
+    private MeshFilter meshFilter;
+    
     // Start is called before the first frame update
     void Start()
     {
+        debug = false;
         isColliding = false;
         radius = Mathf.Max(transform.localScale.x, transform.localScale.y, transform.localScale.z) * 0.5f;
         bulletManager = FindObjectOfType<BulletManager>();
+        meshFilter = GetComponent<MeshFilter>();
+        bounds = meshFilter.mesh.bounds;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         _Move();
         _CheckBounds();
     }
@@ -42,6 +50,8 @@ public class BulletBehaviour : MonoBehaviour
         {
             bulletManager.ReturnBullet(this.gameObject);
         }
+        max = Vector3.Scale(bounds.max, transform.localScale) + transform.position;
+        min = Vector3.Scale(bounds.min, transform.localScale) + transform.position;
     }
 
     private void OnDrawGizmos()
