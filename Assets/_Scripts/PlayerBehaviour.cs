@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerBehaviour : MonoBehaviour
 {
     public Transform bulletSpawn;
@@ -24,11 +25,10 @@ public class PlayerBehaviour : MonoBehaviour
     public RigidBody3D body;
     public CubeBehaviour cube;
     public Camera playerCam;
-    
+    //bool canMove = false;
 
     void start()
     {
-
     }
 
     // Update is called once per frame
@@ -36,6 +36,10 @@ public class PlayerBehaviour : MonoBehaviour
     {
         _Fire();
         _Move();
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Start", LoadSceneMode.Single);
+        }
     }
 
     private void _Move()
