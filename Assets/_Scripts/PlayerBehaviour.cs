@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerBehaviour : MonoBehaviour
     public BulletManager bulletManager;
 
     [Header("Movement")]
-    public float speed;
+    public float speed=2.0f;
     public bool isGrounded;
 
 
