@@ -12,7 +12,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int fireRate;
 
     public float gravity = 9.8f;
-    public float jumpforce = 1.0f;
+    public float jumpforce = 0.5f;
     private Vector3 direction = Vector3.zero;
 
     public BulletManager bulletManager;
